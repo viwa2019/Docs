@@ -1,0 +1,78 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Deposit service",
+    "contact": {
+      "name": "Pim li:lihuacheng@chinasofti.com"
+    }
+  },
+  "host": "ec2-13-228-78-199.ap-southeast-1.compute.amazonaws.com:1443/deposit",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "account-enquiry",
+      "description": "Account Enquiry"
+    }
+  ],
+  "paths": {
+    "/deposit/account/accountDetails/{accountNumber}": {
+      "get": {
+        "tags": [
+          "account-enquiry"
+        ],
+        "summary": "This API is designed to retrieve a bank account details.",
+        "description": "version 0.0.1",
+        "operationId": "accountDetailsUsingGET",
+        "produces": [
+          "*/*",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "description": "The most recent customer authorization token to third party app to access customer data from a bank, in JWT format.",
+            "required": true,
+            "type": "string",
+            "default": "eyJhbGciOiJIUzUxMiIsInppcCI6IkRFRiJ9.eNo8y00OwiAQhuG7zNoFkBLUpbqwadI7ADNWEn4aWozGeHchNs7yme99A9KDfJop9xc4gkTaG6XtTQrRCWEPhMKojhnDLVdKwg5sKnHNr3NCqsF1aORJZxenzRhjvKrJOtr73xr5NLk46tBkdqGlZVlToDyWYCj_hmy7Viw64ik9e6wv-HwBAAD__w.alc0ibAbJotnPxSQL2wtt9Qo8h0YYzl4WkxOK65PnGy1fK4SDmNRRVEohqOya_K7qOXJOt5Cjdm10cejK3PViA"
+          },
+          {
+            "name": "messageid",
+            "in": "header",
+            "description": "Message ID in 128 bit random UUID format generated uniquely for every request by F/E side.",
+            "required": true,
+            "type": "string",
+            "default": "006f7113e5fa48559549c4dfe74e2cd6"
+          },
+          {
+            "name": "clientid",
+            "in": "header",
+            "description": "client_id generated during consumer onboarding. ",
+            "required": true,
+            "type": "string",
+            "default": "devin"
+          },
+          {
+            "name": "accountNumber",
+            "in": "path",
+            "description": "Persistent unique identifier number associated with an account. eg: HK720001001000000001001",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Query completed successfully.(Returned By Get)"
+          },
+          "403": {
+            "description": "Token has incorrect scope or a security policy was violated. Action: Please check whether you’re using the right token with the legal authorized user account."
+          },
+          "404": {
+            "description": "The requested deposit account does not exist.Action: Please make sure the account number and account type you’re inputting are correct."
+          }
+        }
+      }
+    }
+  }
+}
